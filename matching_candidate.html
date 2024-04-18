@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchMate - JobMatch</title>
+    <link rel="icon" href="../static/favicon.jpg" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start; /* Align items to the top */
+        }
+
+        .logo {
+            margin-top: 10px;
+            margin-left: 10px;
+            width: 15%;
+            height: auto;
+        }
+
+        .content {
+            margin-left: 40px; /* Add some margin for separation */
+        }
+
+        /* Styles for the form elements */
+        .form-container {
+            text-align: left;
+            margin-top: 50px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-top: 20px;
+        }
+
+        input[type="file"],
+        input[type="number"],
+        input[type="text"],
+        select {
+            margin-top: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+            width: 250px; /* Adjust the width as needed */
+            font-family: Times, serif;
+            font-size: 14px; /* Set font size */
+        }
+
+
+        .loading-container {
+            display: none; /* Initially hide the loading container */
+            margin-top: 20px;
+            display: flex;
+            align-items: center; /* Align items vertically */
+        }
+
+        .message {
+            margin-top: 20px;
+            margin-left: 110px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            width: 80px; /* Set a fixed width for the button */
+            margin-top: 40px;
+            margin-left: 150px; /* Center the button horizontally */
+            font-family: Times, serif;
+        }  
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <a href="{% url 'home' %}">
+        <img src="../static/small_logo.jpg" alt="Logo" class="logo">
+    </a>
+    
+    <div class="content">
+        <div class="form-container">
+            <h1>Find your Candidates here!</h1>
+            <div>
+                <label for="hiringRegion">Hiring region:</label>
+                <select id="hiringRegion" name="hiringRegion">
+                    <script>
+                        // Array of hiring regions
+                        var hiringRegions = ["Choose a region", "Vietnam", "US", "Korea", "Japan", "India"]
+                    
+                        // Function to populate options
+                        function populateOptions() {
+                            var selectElement = document.getElementById("hiringRegion");
+                    
+                            // Clear existing options
+                            selectElement.innerHTML = "";
+                    
+                            // Populate options from the hiringRegions array
+                            hiringRegions.forEach(function(region) {
+                                var option = document.createElement("option");
+                                option.text = region;
+                                option.value = region;
+                                selectElement.add(option);
+                            });
+                        }
+                    
+                        // Call the function to populate options
+                        populateOptions();
+                    </script>
+                </select>
+            </div>
+            
+            <div>
+                <label for="hiringPosition">Hiring position:</label>
+                <select id="hiringPosition" name="hiringPosition">
+                    <script>
+                        // Array of hiring regions
+                        var hiringPosition = ["Choose a position", "Data Analyst", "Data Scientist", "Data Engineer", "ML Engineer", "AI Engineer"];
+                    
+                        // Function to populate options
+                        function populateOptions() {
+                            var selectElement = document.getElementById("hiringPosition");
+                    
+                            // Clear existing options
+                            selectElement.innerHTML = "";
+                    
+                            // Populate options from the hiringRegions array
+                            hiringPosition.forEach(function(pos) {
+                                var option = document.createElement("option");
+                                option.text = pos;
+                                option.value = pos;
+                                selectElement.add(option);
+                            });
+                        }
+                    
+                        // Call the function to populate options
+                        populateOptions();
+                    </script>
+                </select>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <label for="file" style="display: inline-block;">Upload your JD:</label>
+                    <input type="file" id="file" name="file" accept=".pdf" style="display: inline-block;">
+                </div>
+                
+                <div> 
+                    <button type="submit">Submit</button>
+                    <div class="message" id="message">{{ message }}</div>
+                </div>
+            </form>
+ 
+        </div>
+    </div>
+    
+</body>
+</html>

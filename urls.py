@@ -1,9 +1,10 @@
-from django.contrib import admin
-from django.urls import include, path
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+from .views import home, matching_candidate, matching_job, dashboard
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('myapp.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', home),
+    path('home/', home, name='home'),
+    path('matching_job/', matching_job, name='matching_job'),
+    path('matching_candidate/', matching_candidate, name='matching_candidate'),
+    path('dashboard/', dashboard, name='dashboard'),
+]
